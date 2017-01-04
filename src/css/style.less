@@ -1,0 +1,83 @@
+@baseSize:		25;
+@tileMargin:	3;
+@iconsPerColumn: 4;
+
+.no-select {
+	user-select:			none;
+	-moz-user-select:		none;
+	-ms-user-select:		none;
+	-webkit-user-select:	none;
+}
+
+.column(@params) {
+	-webkit-columns:	@params;
+	-moz-columns:		@params;
+	columns:			@params;
+	-webkit-column-gap:	0px;
+	-moz-column-gap:	0px;
+	column-gap:			0px;
+}
+
+.col-wrapper {
+	margin:					1.5px * @baseSize 10px;
+	display:				inline-block;
+	.no-select;
+
+	.title {
+		.no-select;
+		font-family:		arial;
+		font-size:			20px;
+		margin-left:		10px;
+		cursor:				default;
+		display:			block;
+	}
+
+	ul.col {
+		width:				(@baseSize * 2) * 5px;
+		height:				@baseSize * 5px * @iconsPerColumn;
+		list-style-type:	none;
+		padding:			0px;
+		display:			inline-block;
+		margin-left:		(@tileMargin * -1px);
+		vertical-align:		top;
+		.column((@baseSize * 2) * 5px + 7);
+
+		> li {
+		    box-sizing:		border-box;
+			width:			(@baseSize * 5px) - (@tileMargin * 2);
+			height:			(@baseSize * 5px) - (@tileMargin * 2);
+			float:			left;
+			margin:			@tileMargin + 0px;
+			cursor:			pointer;
+			font-size:		6em;
+			text-align:		center;
+			font-family:	arial;
+			color: white;
+			background-color: black;
+			.no-select;
+
+			&:active {
+				width:			(@baseSize * 5px) - (@tileMargin * 2) - 2px;
+				height:			(@baseSize * 5px) - (@tileMargin * 2) - 2px;
+				margin:			@tileMargin + 1px;
+			}
+
+			&.big {
+				width:			(@baseSize * 2 * 5px) - (@tileMargin * 2);
+
+				&:active {
+					width:		(@baseSize * 2 * 5px) - (@tileMargin * 2) - 2px;
+					height:		(@baseSize * 5px) - (@tileMargin * 2) - 2px;
+				}
+			}
+
+			&.fake {
+				background-color: rgba(50, 50, 50, 0.3);
+			}
+
+			&.dragging {
+				position: absolute;
+			}
+		}
+	}
+}
