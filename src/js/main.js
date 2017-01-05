@@ -259,14 +259,18 @@ $($ => {
 			if (rec.x < x && rec.y < y && x < (rec.x + rec.w) && y < (rec.y + rec.h)) {
 				newPositionAt	= (x < (rec.x + rec.w / 2))? 'before' : 'after';
 				$changeable		= $this;
+
+				return false;
 			}
 		});
 
-		if ($changeable && $changeable.length != 0 && $substitute){
+		if ($changeable && $changeable.length != 0 && $substitute && newPositionAt){
 			$changeable[newPositionAt]($substitute);
+			$('div.col-wrapper').trigger('simulate-move');
 		}
 
-		$changeable = $();
+		$changeable		= $();
+		newPositionAt	= null;
 	});
 
 	$(document).on('drop', '.col-wrapper > ul.col > li', function(e, cursor){
@@ -280,7 +284,7 @@ $($ => {
 		$('div.col-wrapper').trigger('move-item');
 	});
 
-	$(document).on('add-item move-item', 'div.col-wrapper', function(){
+	$(document).on('add-item move-item simulate-move', 'div.col-wrapper', function(){
 		var $col		= $(this).find('.col');
 		var colNumber	= Math.round(($col.find(' :last').position().left - $col.position().left)  / $col.outerWidth()) + 1;
 
